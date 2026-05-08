@@ -17,4 +17,15 @@ public class UnitTest1
         garage.AddVehicle(vehicle);
         Assert.Equal(1, garage.numberOfVehicles);
     }
+
+    [Fact]
+    public void TestRemoveVehicle()
+    {
+        Garage garage = new Garage(5);
+        Vehicle vehicle = new Vehicle("Toyota", "Red", TypeE.Car, "ABC123");
+        garage.AddVehicle(vehicle);
+        Assert.Equal(1, garage.numberOfVehicles);
+        garage.RemoveVehicle(vehicle);
+        Assert.Equal(0, garage.numberOfVehicles);
+    }
 }

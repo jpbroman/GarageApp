@@ -35,7 +35,7 @@ public class Garage
         Console.WriteLine("Vehicles in the garage:");
         foreach (var vehicle in Vehicles)
         {
-            Console.WriteLine(vehicle);
+            Console.WriteLine((vehicle != null) ? vehicle.ToString() : "Empty slot");
         }
     }
 }
