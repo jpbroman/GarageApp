@@ -1,6 +1,6 @@
 namespace GarageExercise
 {
-    enum TypeE { Car, Motorcycle, Truck };
+    public enum TypeE { Car, Motorcycle, Truck };
     
     public class Vehicle
     {
