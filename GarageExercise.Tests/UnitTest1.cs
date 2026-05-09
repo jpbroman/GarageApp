@@ -35,7 +35,8 @@ public class UnitTest1
         Garage garage = new Garage(2);
         Vehicle vehicle1 = new Vehicle("Toyota", "Red","ABC123");
         Vehicle vehicle2 = new Vehicle("Honda", "Blue", "XYZ789");
-        Vehicle vehicle3 = new Vehicle("Ford", "Green", "DEF456");
+        Vehicle vehicle3 = new Car("Ford", Car.CarTypeE.Sedan, Car.TransmissionE.Automatic,
+                            "Green", "DEF456");
         garage.AddVehicle(vehicle1);
         garage.AddVehicle(vehicle2);
         Assert.False(garage.AddVehicle(vehicle3));
