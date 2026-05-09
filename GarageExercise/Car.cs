@@ -5,7 +5,7 @@ public class Car : Vehicle
     public enum TransmissionE { Manual, Automatic}; 
     private CarTypeE CarType { get; set; }
     private TransmissionE Transmission { get; set; }
-    public Car(string make, CarTypeE carType, TransmissionE transmission, string color, string regNumber) 
+    public Car(string make, string color, string regNumber, CarTypeE carType, TransmissionE transmission) 
         : base(make, color, regNumber)
     {
         CarType = carType;
