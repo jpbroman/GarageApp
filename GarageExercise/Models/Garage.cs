@@ -3,7 +3,7 @@ using System.Collections;
 namespace GarageExercise;
 public class Garage
 {
-    private Vehicle?[] Vehicles;
+    private Vehicle?[] Vehicles { get; }
     public int numberOfVehicles { get ; private set; }
     public Garage(int availableSpace)
     {
@@ -13,28 +13,6 @@ public class Garage
 
     public bool AddVehicle(Vehicle vehicle)
     {
-        // check if there is room for this vehicle. If not, print a message and return.
-/*
-        if (numberOfVehicles < Vehicles.Length)
-        {
-            Vehicles[numberOfVehicles] = vehicle;
-            numberOfVehicles++;
-        }
-        else
-        {
-            Console.WriteLine("No room for this vehicle in the garage.");
-        }
-    }
-        for (int i = 0; i < Vehicles.Length; i++)
-        {
-            if (Vehicles[i] == null)
-            {
-                Vehicles[i] = vehicle;
-                numberOfVehicles++;
-                return;
-            }
-        }
-*/
         int i = Array.IndexOf(Vehicles, null);
         if (i >= 0)        {
             Vehicles[i] = vehicle;

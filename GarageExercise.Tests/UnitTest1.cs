@@ -1,3 +1,5 @@
+using Xunit;
+
 namespace GarageExercise.Tests;
 
 public class UnitTest1
@@ -48,4 +50,26 @@ public class UnitTest1
         garage.RemoveVehicle(vehicle1);
         Assert.True(garage.AddVehicle(vehicle5));
     }
+    
+    [Fact]
+    public void TestListVehicles()
+    {
+        Garage garage = new Garage(5);
+        Vehicle vehicle1 = new Vehicle("Toyota", "Red", "ABC123");
+        Vehicle vehicle2 = new Car("Honda", "Blue", "XYZ789", Car.CarTypeE.SUV, Car.TransmissionE.Manual);
+        Vehicle vehicle3 = new Motorcycle("GHI321", "Black", "Harley", Motorcycle.McTypeE.Cruiser);
+        garage.AddVehicle(vehicle1);
+        garage.AddVehicle(vehicle2);
+        garage.AddVehicle(vehicle3);
+    
+        var sw = new StringWriter();  // redirect stdout from class under test
+        Console.SetOut(sw);
+        garage.ListVehicles();
+        string result = sw.ToString();
+
+        Assert.Contains("Toyota, Red, ABC123", result);
+        Assert.Contains("Honda, Blue, XYZ789, SUV, Manual", result);
+        Assert.Contains("GHI321, Black, Harley, Cruiser", result);
+    }
+
 }
