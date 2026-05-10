@@ -3,7 +3,7 @@ using System.Collections;
 namespace GarageExercise;
 public class Garage
 {
-    private Vehicle?[] Vehicles { get; }
+    private Vehicle?[] Vehicles { get; set; }
     public int numberOfVehicles { get ; private set; }
     public Garage(int availableSpace)
     {
@@ -17,6 +17,7 @@ public class Garage
         if (i >= 0)        {
             Vehicles[i] = vehicle;
             numberOfVehicles++;
+            Console.WriteLine($"Vehicle added: {vehicle}");
             return true;
         }
         else {       
@@ -30,13 +31,17 @@ public class Garage
         if (i >= 0)        {
             Vehicles[i] = null;
             numberOfVehicles--;
+            Console.WriteLine($"Vehicle removed: {vehicle}");
         }
         else
         {
             Console.WriteLine("Vehicle not found in the garage.");
         }
     }
-
+    public Vehicle?[] GetVehicles()
+    {
+        return Vehicles;
+    }
     public void ListVehicles()
     {
         Console.WriteLine("Vehicles in the garage:");
