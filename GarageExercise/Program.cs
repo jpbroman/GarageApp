@@ -22,59 +22,25 @@ public class Program
         bool exit = false;
         while (!exit)
         {
-            String prompt = "";
             Console.WriteLine(MainMenu);
-            string choice = SafeInput("Enter your choice: ");
+            string choice = Utils.SafeInput("Enter your choice: ");
             switch (choice)
             {
                 case "1":
                     // Add a vehicle
-                    string type = SafeInput("Enter vehicle type (Car/Motorcycle/Bus): ");
-                    string make = SafeInput("Enter make: ");
-                    string color = SafeInput("Enter color: ");
-                    string regNumber = SafeInput("Enter registration number: ");
-
-                    if (type.Equals("Car", StringComparison.OrdinalIgnoreCase))
-                    {
-                        prompt = ($"Enter car type ({string.Join("/", Enum.GetNames<Car.CarTypeE>())}): ");
-                        Car.CarTypeE carType = Enum.Parse<Car.CarTypeE>(SafeInput(prompt), true);
-                        prompt = $"Enter transmission type (Automatic/Manual): ";
-                        Car.TransmissionE transmission = Enum.Parse<Car.TransmissionE>(SafeInput(prompt), true);
-                        Car car = new Car(make, color, regNumber, carType, transmission);
-                        garage.AddVehicle(car);
-                    }
-                    else if (type.Equals("Motorcycle", StringComparison.OrdinalIgnoreCase))
-                    {
-                        prompt = ($"Enter motorcycle type ({string.Join("/", Enum.GetNames<Motorcycle.McTypeE>())}): ");
-                        Motorcycle.McTypeE mcType = Enum.Parse<Motorcycle.McTypeE>(SafeInput(prompt), true);
-                        prompt = "Enter engine type (TwoStroke/FourStroke): ";
-                        Motorcycle.EngineTypeE engineType = Enum.Parse<Motorcycle.EngineTypeE>(SafeInput(prompt), true);
-                        Motorcycle motorcycle = new Motorcycle(make, color, regNumber, mcType, engineType);
-                        garage.AddVehicle(motorcycle);
-                    }
-                    else if (type.Equals("Bus", StringComparison.OrdinalIgnoreCase))
-                    {
-                        prompt = ($"Enter bus type ({string.Join("/", Enum.GetNames<Bus.BusTypeE>())}): ");
-                        Bus.BusTypeE busType = Enum.Parse<Bus.BusTypeE>(SafeInput(prompt), true);
-                        prompt = "Enter seating capacity: ";
-                        int seatingCapacity;
-                        while (!int.TryParse(SafeInput(prompt), out seatingCapacity))
-                        {
-                            Console.WriteLine("Enter a valid integer for seating capacity:");
-                        }
-                        Bus bus = new Bus(make, color, regNumber, busType, seatingCapacity);
-                        garage.AddVehicle(bus);
-                    }
-                    break;          
+                    string type = Utils.SafeInput("Enter vehicle type (Car/Motorcycle/Bus/Airplane/Boat): ");
+                    Vehicle vehicle = VehicleFactory.CreateVehicle(type);
+                    garage.AddVehicle(vehicle);
+                    break;
                 case "2":
                     // Remove a vehicle
-                    string regNumToRemove = SafeInput("Enter registration number of the vehicle to remove: ");
+                    string regNumToRemove = Utils.SafeInput("Enter registration number of the vehicle to remove: ");
                     Vehicle? vehicleToRemove = null;
-                    foreach (var vehicle in garage.GetVehicles())
+                    foreach (var v in garage.GetVehicles())
                     {
-                        if (vehicle != null && vehicle.RegNumber.Equals(regNumToRemove, StringComparison.OrdinalIgnoreCase))
+                        if (v != null && v.RegNumber.Equals(regNumToRemove, StringComparison.OrdinalIgnoreCase))
                         {
-                            vehicleToRemove = vehicle;
+                            vehicleToRemove = v;
                             break;
                         }
                     }
@@ -101,19 +67,19 @@ public class Program
         }
     }
 
-    private static string SafeInput(string prompt)
-    {
-        string? input = "";
-        Console.Write(prompt);
-        try {
-            input = Console.ReadLine();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error: Incorrect input. {ex.Message}");
-        }
-        return input?.Trim() ?? "";
-    }
+    // private static string SafeInput(string prompt)
+    // {
+    //     string? input = "";
+    //     Console.Write(prompt);
+    //     try {
+    //         input = Console.ReadLine();
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         Console.WriteLine($"Error: Incorrect input. {ex.Message}");
+    //     }
+    //     return input?.Trim() ?? "";
+    // }
 }
 
 
