@@ -13,6 +13,6 @@ public class Boat : Vehicle
 
     public override string ToString()
     {
-        return $"{base.ToString()}, {BoatType}, {Length} m";
+        return $"Boat: {base.ToString()}, {BoatType}, {Length} m";
     }
 }

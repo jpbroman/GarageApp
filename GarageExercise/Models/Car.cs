@@ -14,6 +14,6 @@ public class Car : Vehicle
 
     public override string ToString()
     {
-        return $"{base.ToString()}, {CarType}, {Transmission}";
+        return $"Car: {base.ToString()}, {CarType}, {Transmission}";
     }
 }

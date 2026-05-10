@@ -75,11 +75,11 @@ public class UnitTest1
         string result = sw.ToString();
 
         Assert.Contains("Toyota, Red, ABC123", result);
-        Assert.Contains("Honda, Blue, XYZ789, SUV, Manual", result);
-        Assert.Contains("Haeley, Black, POI123, Cruiser, FourStroke", result);
-        Assert.Contains("Boeing, White, JKL012, Commercial, 4 engines, 200 seats", result);
-        Assert.Contains("Volvo, Yellow, MNO345, City, 50", result);
-        Assert.Contains("Yamaha, Blue, PQR678, Sailboat, 30", result);
+        Assert.Contains("Car: Honda, Blue, XYZ789, SUV, Manual", result);
+        Assert.Contains("Motorcycle: Haeley, Black, POI123, Cruiser, FourStroke", result);
+        Assert.Contains("Airplane: Boeing, White, JKL012, Commercial, 4 engines, 200 seats", result);
+        Assert.Contains("Bus: Volvo, Yellow, MNO345, City, 50", result);
+        Assert.Contains("Boat: Yamaha, Blue, PQR678, Sailboat, 30", result);
     }
 
 }

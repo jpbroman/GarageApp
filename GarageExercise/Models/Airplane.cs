@@ -15,6 +15,6 @@ public class Airplane : Vehicle
 
     public override string ToString()
     {
-        return $"{base.ToString()}, {AirplaneType}, {NumberOfEngines} engines, {NumberOfSeats} seats";
+        return $"Airplane: {base.ToString()}, {AirplaneType}, {NumberOfEngines} engines, {NumberOfSeats} seats";
     }
 }

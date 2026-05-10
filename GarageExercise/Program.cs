@@ -54,8 +54,26 @@ public class Program
                     } 
                     break;         
                 case "3":
-                    // Display all vehicles
-                    garage.ListVehicles();
+                    // Display vehicles in the garage
+                    string? vehicleType = Utils.SafeInput("Press Enter to display all vehicles or enter a specific type (Car/Motorcycle/Bus/Airplane/Boat): ");
+                    if (vehicleType == "" || vehicleType == null)
+                    {
+                        garage.ListVehicles();
+                    }
+                    else
+                    {
+                        // Normalize input to match class names
+                        vehicleType = char.ToUpper(vehicleType[0]) + vehicleType.Substring(1).ToLower(); 
+                        Type? classType = Type.GetType($"GarageExercise.{vehicleType}");
+                        if (classType != null)
+                        {
+                            garage.ListVehicles(classType);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid vehicle type.");
+                        }
+                    }
                     break;
                 case "0":
                     exit = true;
@@ -66,20 +84,6 @@ public class Program
             }
         }
     }
-
-    // private static string SafeInput(string prompt)
-    // {
-    //     string? input = "";
-    //     Console.Write(prompt);
-    //     try {
-    //         input = Console.ReadLine();
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         Console.WriteLine($"Error: Incorrect input. {ex.Message}");
-    //     }
-    //     return input?.Trim() ?? "";
-    // }
 }
 
 

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.InteropServices.Marshalling;
 
 namespace GarageExercise;
 public class Garage
@@ -42,12 +43,16 @@ public class Garage
     {
         return Vehicles;
     }
-    public void ListVehicles()
+    public void ListVehicles(Type? t = null)
     {
         Console.WriteLine("Vehicles in the garage:");
         foreach (var vehicle in Vehicles)
         {
-            Console.WriteLine((vehicle != null) ? vehicle.ToString() : "Empty slot");
+            if (t == null || (vehicle?.GetType() == t))
+
+            {
+                Console.WriteLine((vehicle != null) ? vehicle.ToString() : "Empty slot");
+            }
         }
     }
 }
