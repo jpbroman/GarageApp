@@ -5,7 +5,7 @@ public class Boat : Vehicle
     private BoatTypeE BoatType { get; set; }
     private double Length { get; set; }  // in meters
     public Boat(string make, string color, string regNumber, BoatTypeE boatType, double length) 
-        : base(make, color, regNumber)
+        : base(VehicleTypeE.Boat, make, color, regNumber)
     {
         BoatType = boatType;
         Length = length;

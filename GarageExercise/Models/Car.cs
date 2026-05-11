@@ -6,7 +6,7 @@ public class Car : Vehicle
     private CarTypeE CarType { get; set; }
     private TransmissionE Transmission { get; set; }
     public Car(string make, string color, string regNumber, CarTypeE carType, TransmissionE transmission) 
-        : base(make, color, regNumber)
+        : base(VehicleTypeE.Car, make, color, regNumber)
     {
         CarType = carType;
         Transmission = transmission;

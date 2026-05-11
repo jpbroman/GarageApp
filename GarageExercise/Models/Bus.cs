@@ -6,7 +6,7 @@ public class Bus : Vehicle
     private BusTypeE BusType { get; set; }
     private int NumberOfSeats { get; set; }
     public Bus(string make, string color, string regNumber, BusTypeE busType, int numberOfSeats) 
-        : base(make, color, regNumber)
+        : base(VehicleTypeE.Bus, make, color, regNumber)
     {
         BusType = busType;
         NumberOfSeats = numberOfSeats;

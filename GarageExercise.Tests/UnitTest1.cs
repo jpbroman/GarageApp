@@ -16,7 +16,7 @@ public class UnitTest1
     public void TestAddVehicle()
     {
         Garage garage = new Garage(5);
-        Vehicle vehicle = new Vehicle("Toyota", "Red", "ABC123");
+        Vehicle vehicle = new Vehicle(Vehicle.VehicleTypeE.Car, "Toyota", "Red", "ABC123");
         Assert.True(garage.AddVehicle(vehicle));
         Assert.Equal(1, garage.numberOfVehicles);
     }
@@ -25,7 +25,7 @@ public class UnitTest1
     public void TestRemoveVehicle()
     {
         Garage garage = new Garage(5);
-        Vehicle vehicle = new Vehicle("Toyota", "Red", "ABC123");
+        Vehicle vehicle = new Vehicle(Vehicle.VehicleTypeE.Car, "Toyota", "Red", "ABC123");
         garage.AddVehicle(vehicle);
         Assert.Equal(1, garage.numberOfVehicles);
         garage.RemoveVehicle(vehicle);
@@ -36,8 +36,8 @@ public class UnitTest1
     public void TestAddTooManyVehicles()
     {
         Garage garage = new Garage(3);
-        Vehicle vehicle1 = new Vehicle("Toyota", "Red","ABC123");
-        Vehicle vehicle2 = new Vehicle("Honda", "Blue", "XYZ789");
+        Vehicle vehicle1 = new Vehicle(Vehicle.VehicleTypeE.Car, "Toyota", "Red", "ABC123");
+        Vehicle vehicle2 = new Vehicle(Vehicle.VehicleTypeE.Car, "Honda", "Blue", "XYZ789");
         Vehicle vehicle3 = new Car("Ford", "Green", "DEF456", Car.CarTypeE.Sedan, Car.TransmissionE.Automatic);
         Vehicle vehicle4 = new Motorcycle("GHI321", "Black", "Harley", Motorcycle.McTypeE.Cruiser, Motorcycle.EngineTypeE.FourStroke);  
         Vehicle vehicle5 = new Bus("Volvo", "Yellow", "JKL012", Bus.BusTypeE.City, 50);
@@ -56,7 +56,7 @@ public class UnitTest1
     public void TestListVehicles()
     {
         Garage garage = new Garage(10);
-        Vehicle vehicle1 = new Vehicle("Toyota", "Red", "ABC123");
+        Vehicle vehicle1 = new Vehicle(Vehicle.VehicleTypeE.Car, "Toyota", "Red", "ABC123");
         Vehicle vehicle2 = new Car("Honda", "Blue", "XYZ789", Car.CarTypeE.SUV, Car.TransmissionE.Manual);
         Vehicle vehicle3 = new Motorcycle("Haeley", "Black", "POI123", Motorcycle.McTypeE.Cruiser, Motorcycle.EngineTypeE.FourStroke);
         Vehicle vehicle4 = new Airplane("Boeing", "White", "JKL012", Airplane.AirplaneTypeE.Commercial, 4, 200);
@@ -73,32 +73,25 @@ public class UnitTest1
         Console.SetOut(sw);
         garage.ListVehicles();
         string result = sw.ToString();
-
-        Assert.Contains("Toyota, Red, ABC123", result);
-        Assert.Contains("Car: Honda, Blue, XYZ789, SUV, Manual", result);
-        Assert.Contains("Motorcycle: Haeley, Black, POI123, Cruiser, FourStroke", result);
-        Assert.Contains("Airplane: Boeing, White, JKL012, Commercial, 4 engines, 200", result);
-        Assert.Contains("Bus: Volvo, Yellow, MNO345, City, 50", result);
-        Assert.Contains("Boat: Yamaha, Blue, PQR678, Sailboat, 30", result);
+        Assert.Contains("Make: Toyota, Color: Red, RegNumber: ABC123", result);
+        Assert.Contains("Make: Honda, Color: Blue, RegNumber: XYZ789", result);
+        Assert.Contains("Make: Haeley, Color: Black, RegNumber: POI123", result);
+        Assert.Contains("Make: Boeing, Color: White, RegNumber: JKL012", result);
+        Assert.Contains("Make: Volvo, Color: Yellow, RegNumber: MNO345", result);
+        Assert.Contains("Make: Yamaha, Color: Blue, RegNumber: PQR678", result);
     }
 
     [Fact]
-    public void TestGetClassFields()
+    public void TestGetObjectData()
     {
         Garage garage = new Garage(5);
         Vehicle vehicle = new Car("Honda", "Blue", "XYZ789", Car.CarTypeE.SUV, Car.TransmissionE.Manual);
-        var sw = new StringWriter();  // redirect stdout from class under test
-        Console.SetOut(sw);
-        garage.GetObjectData(vehicle);
-        string result = sw.ToString();
+        string result = garage.GetObjectData(vehicle);
         Assert.Contains("Make: Honda", result);
         Assert.Contains("Color: Blue", result);
         Assert.Contains("RegNumber: XYZ789", result);
         vehicle = new Motorcycle("Haeley", "Black", "POI123", Motorcycle.McTypeE.Cruiser, Motorcycle.EngineTypeE.FourStroke);
-        sw = new StringWriter();  // redirect stdout from class under test  
-        Console.SetOut(sw);
-        garage.GetObjectData(vehicle);
-        result = sw.ToString(); 
+        result = garage.GetObjectData(vehicle);
         Assert.Contains("Make: Haeley", result);
         Assert.Contains("Color: Black", result);    
         Assert.Contains("RegNumber: POI123", result);

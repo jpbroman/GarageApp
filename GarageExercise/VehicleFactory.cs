@@ -8,11 +8,12 @@ public class VehicleFactory
     public static Vehicle CreateVehicle(string type)
     {
         // base data
+        Vehicle.VehicleTypeE vehicleType = Enum.TryParse<Vehicle.VehicleTypeE>(type, true, out var vt) ? vt : Vehicle.VehicleTypeE.Unknown;
         string make = Utils.SafeInput("Enter make: ");
         string color = Utils.SafeInput("Enter color: ");
         string regNumber = Utils.SafeInput("Enter registration number: ");
 
-        Vehicle vehicle = new Vehicle(make, color, regNumber);
+        Vehicle vehicle = new Vehicle(vehicleType, make, color, regNumber);
 
         switch (type.ToLower())
         {

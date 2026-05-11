@@ -6,7 +6,7 @@ public class Airplane : Vehicle
     private int NumberOfEngines { get; set; }
     private int NumberOfSeats { get; set; }
     public Airplane(string make, string color, string regNumber, AirplaneTypeE airplaneType, 
-        int numberOfEngines, int numberOfSeats) : base(make, color, regNumber)
+        int numberOfEngines, int numberOfSeats) : base(VehicleTypeE.Airplane, make, color, regNumber)
     {
         AirplaneType = airplaneType;
         NumberOfEngines = numberOfEngines;

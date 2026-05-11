@@ -2,12 +2,15 @@ using System.Text;
 namespace GarageExercise;
 public class Vehicle
 {
+    public enum VehicleTypeE { Car, Motorcycle, Bus, Airplane, Boat, Unknown};
     public string Make { get; private set; }
     public string Color  { get; private set; }  // US variant of färg :-)
     public string RegNumber { get; private set; }
+    public VehicleTypeE Type { get; private set; }
 
-    public Vehicle(string make, string color, string regNumber)
+    public Vehicle(VehicleTypeE type, string make, string color, string regNumber)
     {
+        Type = type;
         Make = make;
         Color = color;
         RegNumber = regNumber;
@@ -15,6 +18,6 @@ public class Vehicle
 
     public override string ToString()
     {
-        return $"{Make}, {Color}, {RegNumber}";
+        return $"{Type}, {Make}, {Color}, {RegNumber}";
     }
 }

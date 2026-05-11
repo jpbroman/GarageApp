@@ -6,7 +6,7 @@ public class Motorcycle : Vehicle
     private McTypeE McType { get; set; }
     private EngineTypeE EngineType { get; set; }
     public Motorcycle(string make, string color, string regNumber, 
-        McTypeE mcType, EngineTypeE engineType) : base(make, color, regNumber)
+        McTypeE mcType, EngineTypeE engineType) : base(VehicleTypeE.Motorcycle, make, color, regNumber)
     {
         McType = mcType;
         EngineType = engineType;
