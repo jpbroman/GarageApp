@@ -95,6 +95,33 @@ public class UnitTest1
         Assert.Contains("Make: Haeley", result);
         Assert.Contains("Color: Black", result);    
         Assert.Contains("RegNumber: POI123", result);
+    }
 
+    [Fact]
+    public void TestSaveToFile()
+    {
+        Garage garage = new Garage(5);
+        Vehicle vehicle1 = new Car("Honda", "Blue", "XYZ789", Car.CarTypeE.SUV, Car.TransmissionE.Manual);
+        Vehicle vehicle2 = new Car("Skoda", "Red", "ABC123", Car.CarTypeE.Sedan, Car.TransmissionE.Automatic);
+        garage.AddVehicle(vehicle1);
+        garage.AddVehicle(vehicle2);
+
+        string filePath = "test_garage.txt";
+        garage.SaveToFile(filePath);
+        Assert.True(File.Exists(filePath));
+        string content = File.ReadAllText(filePath);
+    }
+
+    [Fact]
+    public void TestLoadFromFile()
+    {
+        Garage garage = new Garage(5);
+        string filePath = "test_garage.txt";
+        File.WriteAllText(filePath, "Car: Honda, Blue, XYZ789, SUV, Manual\nCar: Skoda, Red, ABC123, Sedan, Automatic\n");
+        garage.LoadFromFile(filePath);
+        Assert.Equal(2, garage.numberOfVehicles);
+        var vehicles = garage.GetVehicles();
+        Assert.Contains(vehicles, v => v != null && v.RegNumber == "ABC123");
+        Assert.Contains(vehicles, v => v != null && v.RegNumber == "XYZ789");
     }
 }
