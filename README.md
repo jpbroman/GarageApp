@@ -19,7 +19,7 @@ Examples:
   (File suffix is of no importance)
 
 > GarageExercise 8
-- This will create an emty garage with room for 8 vehicles, which can be populated from application menu.
+- This will create an empty garage with room for 8 vehicles, which can be populated from application menu.
 
 Take a look at GarageExercise.Tests/Resources/garage1.inv to get hang of the load- and save file format.
 A simple guide to each vehicle entry:
