@@ -36,7 +36,7 @@ public class Garage
         if (i >= 0)        {
             Vehicles[i] = null;
             numberOfVehicles--;
-            Console.WriteLine($"Vehicle removed: {vehicle}");
+            Console.WriteLine($"Vehicle removed: {GetObjectData(vehicle)}");
         }
         else
         {
@@ -49,7 +49,7 @@ public class Garage
     }
     public void ListVehicles(Type? t = null)
     {
-        Console.WriteLine("Vehicles in the garage:");
+        Console.WriteLine($"Number of vehicles in the garage: {numberOfVehicles}");
         foreach (var vehicle in Vehicles)
         {
             Type? type = vehicle?.GetType();
@@ -59,9 +59,6 @@ public class Garage
                 {
                     Console.WriteLine(GetObjectData(vehicle));
                 }               
-            }
-            else {
-                Console.WriteLine("Empty slot");
             }
         }
     }

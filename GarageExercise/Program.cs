@@ -6,10 +6,14 @@ public class Program
          "4. Save inventory to file\n5. Load inventory from file\n0. Exit";
     static void Main(string[] args)
     {
-        int numberOfVehicles;
-        if (args.Length != 1 || !int.TryParse(args[0], out numberOfVehicles))
+        int numberOfVehicles = 0;
+        if (args.Length >= 1 && int.TryParse(args[0], out numberOfVehicles))
         {
-            Console.Write("Please provide the number of vehicles: ");
+            Console.WriteLine($"Number of vehicles: {numberOfVehicles}");
+        }
+        else
+        {
+            Console.WriteLine("Enter the number of vehicles the garage can hold:");
             while (!int.TryParse(Console.ReadLine(), out numberOfVehicles))
             {
                 Console.WriteLine("Enter a valid integer for the number of vehicles:");
@@ -17,7 +21,13 @@ public class Program
         }
 
         Garage garage = new Garage(numberOfVehicles);
-        Console.WriteLine($"Garage created: {garage}");
+        Console.WriteLine($"Garage created with room for {numberOfVehicles} vehicles.");
+
+        if (args.Length == 2)
+        {
+            Console.WriteLine($"Populating garage from file: {args[1]}");
+            garage.LoadFromFile(args[1]);
+        }
 
         // Main menu loop
         bool exit = false;
@@ -85,7 +95,7 @@ public class Program
                     // Load inventory from file
                     filePath = Utils.SafeInput("Enter file path to load inventory: ");
                     garage.LoadFromFile(filePath);
-                    break;  
+                    break;
                 case "0":
                     exit = true;
                     break;
