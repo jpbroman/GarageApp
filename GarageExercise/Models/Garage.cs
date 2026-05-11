@@ -62,6 +62,18 @@ public class Garage
             }
         }
     }
+    public void ListVehiclesByProperties()
+    {
+        Console.WriteLine($"Number of vehicles in the garage: {numberOfVehicles}");
+        foreach (var vehicle in Vehicles)
+        {
+            if (vehicle != null)
+            {
+                Type type = vehicle.GetType();
+                Console.WriteLine($"Type: {type.Name}, Make: {vehicle.Make}, Color: {vehicle.Color}, RegNumber: {vehicle.RegNumber}");
+            }
+        }
+    }
     public void SaveToFile(string filePath)
     {
         try

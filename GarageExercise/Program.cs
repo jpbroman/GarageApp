@@ -6,6 +6,7 @@ public class Program
          "4. Save inventory to file\n5. Load inventory from file\n0. Exit";
     static void Main(string[] args)
     {
+        Console.WriteLine("Welcome to the Garage Management System!");
         int numberOfVehicles = 0;
         if (args.Length >= 1 && int.TryParse(args[0], out numberOfVehicles))
         {

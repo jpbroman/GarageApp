@@ -15,17 +15,17 @@ public class VehicleFactory
 
         Vehicle vehicle = new Vehicle(vehicleType, make, color, regNumber);
 
-        switch (type.ToLower())
+        switch (type.ToLower().Substring(0, Math.Min(type.Length, 3))) // use first 3 letters to determine type
         {
             case "car":
                 return CreateCar(vehicle);
-            case "motorcycle":
+            case "mot":
                 return CreateMotorcycle(vehicle);
             case "bus":
                 return CreateBus(vehicle);
-            case "airplane":
+            case "air":
                 return CreateAirplane(vehicle);
-            case "boat":
+            case "boa":
                 return CreateBoat(vehicle);
             default:
                 throw new ArgumentException($"Unknown vehicle type: {type}");
