@@ -62,15 +62,27 @@ public class Garage
             }
         }
     }
-    public void ListVehiclesByProperties()
+    public void ListVehiclesByProperties(Vehicle.VehicleTypeE vehicleType, string? make, string ?color)
     {
         Console.WriteLine($"Number of vehicles in the garage: {numberOfVehicles}");
+        // Vehicle v = new Vehicle(Vehicle.VehicleTypeE.Unknown, "Make", "Color", "RegNumber"); // dummy object to get property names
+        // Type type = v.GetType();
+        // Console.WriteLine(string.Join(", ", type.GetProperties(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance).Select(p => p.Name)));
+
         foreach (var vehicle in Vehicles)
         {
             if (vehicle != null)
             {
-                Type type = vehicle.GetType();
-                Console.WriteLine($"Type: {type.Name}, Make: {vehicle.Make}, Color: {vehicle.Color}, RegNumber: {vehicle.RegNumber}");
+                Type type2 = vehicle.GetType();
+                if ((vehicleType == Vehicle.VehicleTypeE.Unknown || vehicle.Type == vehicleType) &&
+                    (string.IsNullOrEmpty(make) || vehicle.Make.Equals(make, StringComparison.OrdinalIgnoreCase)) &&
+                    (string.IsNullOrEmpty(color) || vehicle.Color.Equals(color, StringComparison.OrdinalIgnoreCase)))
+                {
+                    String vehicleData = GetObjectData(vehicle);
+                    Console.WriteLine(vehicleData);
+                }
+
+//                Console.WriteLine($"Type: {type2.Name}, Make: {vehicle.Make}, Color: {vehicle.Color}, RegNumber: {vehicle.RegNumber}");
             }
         }
     }

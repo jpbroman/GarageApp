@@ -1,4 +1,5 @@
 using System;
+using System.Reflection.Metadata;
 [assembly: CaptureConsole]
 
 namespace GarageExercise.Tests;
@@ -123,5 +124,45 @@ public class UnitTest1
         var vehicles = garage.GetVehicles();
         Assert.Contains(vehicles, v => v != null && v.RegNumber == "ABC123");
         Assert.Contains(vehicles, v => v != null && v.RegNumber == "XYZ789");
+    }
+    [Fact]
+    public void TestListVehiclesByProperties()
+    {
+        Garage garage = new Garage(7);
+        Vehicle vehicle1 = new Car("Honda", "Blue", "XYZ789", Car.CarTypeE.SUV, Car.TransmissionE.Manual);
+        Vehicle vehicle2 = new Boat("Flipper", "Red", "ABC123", Boat.BoatTypeE.Sailboat, 30);
+        garage.AddVehicle(vehicle1);
+        garage.AddVehicle(vehicle2);
+
+        var sw = new StringWriter();  // redirect stdout from class under test
+        Console.SetOut(sw);
+        // Find all red vehicles regardless of type or make
+        garage.ListVehiclesByProperties(Vehicle.VehicleTypeE.Unknown, null, "Red");
+        string result = sw.ToString();
+
+        sw.GetStringBuilder().Clear(); // clear output for next test
+        garage.ListVehiclesByProperties(Vehicle.VehicleTypeE.Car, null, null);
+        result = sw.ToString();
+        Assert.Contains("Make: Honda, Color: Blue, RegNumber: XYZ789", result);
+        Assert.DoesNotContain("Make: Flipper, Color: Red, RegNumber: ABC123", result);
+
+        garage.AddVehicle(new Car("Honda", "Black", "AEF456", Car.CarTypeE.Hatchback, Car.TransmissionE.Automatic));
+        garage.AddVehicle(new Airplane("Flyer2", "Blue", "POI234", Airplane.AirplaneTypeE.Private, 2, 4));
+        sw.GetStringBuilder().Clear(); // clear output for next test
+        garage.ListVehiclesByProperties(Vehicle.VehicleTypeE.Unknown, "Honda", "Black");
+        result = sw.ToString();
+        Assert.Contains("Make: Honda, Color: Black, RegNumber: AEF456", result);
+        Assert.DoesNotContain("Make: Honda, Color: Blue, RegNumber: XYZ789", result);
+        Assert.DoesNotContain("Make: Flyer2, Color: Blue, RegNumber: POI234", result);
+
+        // All Blue vehicles regardless of type or make
+        garage.AddVehicle(new Motorcycle("Harley", "Blue", "QWE567", Motorcycle.McTypeE.Cruiser, Motorcycle.EngineTypeE.FourStroke));
+        sw.GetStringBuilder().Clear(); // clear output for next test
+        garage.ListVehiclesByProperties(Vehicle.VehicleTypeE.Unknown, null, "Blue");
+        result = sw.ToString();
+        Assert.Contains("Make: Honda, Color: Blue, RegNumber: XYZ789", result);
+        Assert.Contains("Make: Flyer2, Color: Blue, RegNumber: POI234", result);
+        Assert.Contains("Make: Harley, Color: Blue, RegNumber: QWE567", result);
+        Assert.DoesNotContain("Make: Honda, Color: Black, RegNumber: AEF456", result);
     }
 }
