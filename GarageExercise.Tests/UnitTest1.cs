@@ -77,9 +77,31 @@ public class UnitTest1
         Assert.Contains("Toyota, Red, ABC123", result);
         Assert.Contains("Car: Honda, Blue, XYZ789, SUV, Manual", result);
         Assert.Contains("Motorcycle: Haeley, Black, POI123, Cruiser, FourStroke", result);
-        Assert.Contains("Airplane: Boeing, White, JKL012, Commercial, 4 engines, 200 seats", result);
+        Assert.Contains("Airplane: Boeing, White, JKL012, Commercial, 4 engines, 200", result);
         Assert.Contains("Bus: Volvo, Yellow, MNO345, City, 50", result);
         Assert.Contains("Boat: Yamaha, Blue, PQR678, Sailboat, 30", result);
     }
 
+    [Fact]
+    public void TestGetClassFields()
+    {
+        Garage garage = new Garage(5);
+        Vehicle vehicle = new Car("Honda", "Blue", "XYZ789", Car.CarTypeE.SUV, Car.TransmissionE.Manual);
+        var sw = new StringWriter();  // redirect stdout from class under test
+        Console.SetOut(sw);
+        garage.GetObjectData(vehicle);
+        string result = sw.ToString();
+        Assert.Contains("Make: Honda", result);
+        Assert.Contains("Color: Blue", result);
+        Assert.Contains("RegNumber: XYZ789", result);
+        vehicle = new Motorcycle("Haeley", "Black", "POI123", Motorcycle.McTypeE.Cruiser, Motorcycle.EngineTypeE.FourStroke);
+        sw = new StringWriter();  // redirect stdout from class under test  
+        Console.SetOut(sw);
+        garage.GetObjectData(vehicle);
+        result = sw.ToString(); 
+        Assert.Contains("Make: Haeley", result);
+        Assert.Contains("Color: Black", result);    
+        Assert.Contains("RegNumber: POI123", result);
+
+    }
 }

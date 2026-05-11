@@ -2,7 +2,8 @@
 
 public class Program
 {
-    private static string MainMenu = "1. Add a vehicle\n2. Remove a vehicle\n3. Display garage contents\n0. Exit";
+    private static string MainMenu = "1. Add a vehicle\n2. Remove a vehicle\n3. Display garage contents\n" +
+         "4. Save inventory to file\n5. Load inventory from file\n0. Exit";
     static void Main(string[] args)
     {
         int numberOfVehicles;
@@ -75,6 +76,16 @@ public class Program
                         }
                     }
                     break;
+                case "4":
+                    // Save inventory to file
+                    string filePath = Utils.SafeInput("Enter file path to save inventory: ");
+                    garage.SaveToFile(filePath);
+                    break;
+                case "5":
+                    // Load inventory from file
+                    filePath = Utils.SafeInput("Enter file path to load inventory: ");
+                    garage.LoadFromFile(filePath);
+                    break;  
                 case "0":
                     exit = true;
                     break;

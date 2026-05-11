@@ -30,6 +30,61 @@ public class VehicleFactory
                 throw new ArgumentException($"Unknown vehicle type: {type}");
         }
     }
+
+    public static Vehicle CreateVehicleFromData(string type, string data)
+    {
+        string[] parts = data.Split(',', StringSplitOptions.TrimEntries);
+        if (parts.Length < 4)
+        {
+            throw new ArgumentException("Invalid data format for vehicle.");
+        }
+        string make = parts[0];
+        string color = parts[1];
+        string regNumber = parts[2];
+
+        switch (type.ToLower())
+        {
+            case "car":
+                string cartypeStr = parts[3];
+                string transmissionStr = parts[4];
+                Car.CarTypeE carType = Enum.Parse<Car.CarTypeE>(cartypeStr, true);
+                Car.TransmissionE transmission = Enum.Parse<Car.TransmissionE>(transmissionStr, true);
+                Car car = new Car(make, color, regNumber, carType, transmission);
+                return car;
+            case "motorcycle":
+                string mctypeStr = parts[3];
+                string engineTypeStr = parts[4];
+                Motorcycle.McTypeE mcType = Enum.Parse<Motorcycle.McTypeE>(mctypeStr, true);
+                Motorcycle.EngineTypeE engineType = Enum.Parse<Motorcycle.EngineTypeE>(engineTypeStr, true);
+                Motorcycle motorcycle = new Motorcycle(make, color, regNumber, mcType, engineType);
+                return motorcycle;
+            case "bus":
+                string bustypeStr = parts[3];
+                string seatingCapacityStr = parts[4];
+                Bus.BusTypeE busType = Enum.Parse<Bus.BusTypeE>(bustypeStr, true);
+                int seatingCapacity = int.Parse(seatingCapacityStr);
+                Bus bus = new Bus(make, color, regNumber, busType, seatingCapacity);
+                return bus;
+            case "airplane":
+                string airplaneTypeStr = parts[3];
+                string numEnginesStr = parts[4];
+                string numSeatsStr = parts[5];
+                Airplane.AirplaneTypeE airplaneType = Enum.Parse<Airplane.AirplaneTypeE>(airplaneTypeStr, true);
+                int numEngines = int.Parse(numEnginesStr);
+                int numSeats = int.Parse(numSeatsStr);
+                Airplane airplane = new Airplane(make, color, regNumber, airplaneType, numEngines, numSeats);
+                return airplane;
+            case "boat":
+                string boatTypeStr = parts[3];
+                string lengthStr = parts[4];
+                Boat.BoatTypeE boatType = Enum.Parse<Boat.BoatTypeE>(boatTypeStr, true);
+                double length = double.Parse(lengthStr);
+                Boat boat = new Boat(make, color, regNumber, boatType, length);
+                return boat;
+            default:
+                throw new ArgumentException($"Unknown vehicle type: {type}");
+        }
+    }
     private static Car CreateCar(Vehicle vehicle)   
     {
         prompt = ($"Enter car type ({string.Join("/", Enum.GetNames<Car.CarTypeE>())}): ");
@@ -74,13 +129,13 @@ public class VehicleFactory
         {
             Console.WriteLine("Enter a valid integer for number of engines:");
         }
-        prompt = "Enter maximum altitude (ft): ";
-        int maxAltitude;
-        while (!int.TryParse(Utils.SafeInput(prompt), out maxAltitude))
+        prompt = "Enter number of seats: ";
+        int numSeats;
+        while (!int.TryParse(Utils.SafeInput(prompt), out numSeats))
         {
-            Console.WriteLine("Enter a valid integer for maximum altitude:");
+            Console.WriteLine("Enter a valid integer for number of seats:");
         }
-        Airplane airplane = new Airplane(vehicle.Make, vehicle.Color, vehicle.RegNumber, airplaneType, numEngines, maxAltitude);
+        Airplane airplane = new Airplane(vehicle.Make, vehicle.Color, vehicle.RegNumber, airplaneType, numEngines, numSeats);
         return airplane;
     }
 

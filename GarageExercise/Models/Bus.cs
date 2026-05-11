@@ -14,6 +14,6 @@ public class Bus : Vehicle
 
     public override string ToString()
     {
-        return $"Bus: {base.ToString()}, {BusType}, {NumberOfSeats} seats";
+        return $"Bus: {base.ToString()}, {BusType}, {NumberOfSeats}";
     }
 }
