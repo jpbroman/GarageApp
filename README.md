@@ -30,6 +30,6 @@ Car: Saab, blue, SAB111, Sedan, Manual
 Bus: Volvo, Red, VOL222, City, 50
 Boat: Fisher1, red, FIS331, Motorboat, 16
 
-A tip: Start by adding one of each vehicle from the munu and you will get the hang of what properties there are for each vehicle.
-An absulte safe way is ofcourse to look at the class files in the Mopdels folder.
+A tip: Start by adding one of each vehicle from the menu and you will get the hang of what properties there are for each vehicle.
+An absolute safe way is ofcourse to look at the class files in the Models folder.
 
