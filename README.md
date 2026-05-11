@@ -2,14 +2,14 @@ This is the GarageExercise project
 
 It is written in C# and allow you to manage a garage with several vehicles of various types:
 
-○ Motorcycle
-○ Airplane
-○ Car
-○ Bus
-○ Boat
+* Motorcycle
+* Airplane
+* Car
+* Bus
+* Boat
 
 The user can enter new vehicles via the main menu or populate the garage by giving a file name to the application at start. Please
-note that a capacity is the first input parameter on the commandline. If no arguments is supplied, the user will be asked to enter
+note that a capacity is the first input parameter on the commandline. If no arguments are supplied, the user will be asked to enter
 initial capacity for the garage.
 
 Examples:
@@ -23,7 +23,7 @@ Examples:
 
 Take a look at GarageExercise.Tests/Resources/garage1.inv to get hang of the load- and save file format.
 A simple guide to each vehicle entry:
-VehicleTpe: make, color, registration number, model, additional propeties comma separeted
+VehicleTpe: make, color, registration number, model, <additional properties comma separated>
 
 For example:
 Car: Saab, blue, SAB111, Sedan, Manual
