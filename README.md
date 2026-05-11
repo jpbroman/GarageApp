@@ -25,7 +25,7 @@ Take a look at GarageExercise.Tests/Resources/garage1.inv to get hang of the loa
 A simple guide to each vehicle entry:
 VehicleTpe: make, color, registration number, model, <additional properties comma separated>
 
-For example:
+For example:  
 Car: Saab, blue, SAB111, Sedan, Manual  
 Bus: Volvo, Red, VOL222, City, 50  
 Boat: Fisher1, red, FIS331, Motorboat, 16  
