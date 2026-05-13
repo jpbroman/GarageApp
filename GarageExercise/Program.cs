@@ -41,8 +41,14 @@ public class Program
                 case "1":
                     // Add a vehicle
                     string type = Utils.SafeInput("Enter vehicle type (Car/Motorcycle/Bus/Airplane/Boat): ");
-                    Vehicle vehicle = VehicleFactory.CreateVehicle(type);
-                    garage.AddVehicle(vehicle);
+                    string make = Utils.SafeInput("Enter make: ");
+                    string color = Utils.SafeInput("Enter color: ");
+                    string regNumber = Utils.SafeInput("Enter registration number: ");
+                    Vehicle? vehicle = VehicleFactory.CreateVehicle(type, make, color, regNumber);
+                    if (vehicle != null)
+                    {
+                        garage.AddVehicle(vehicle);
+                    }
                     break;
                 case "2":
                     // Remove a vehicle
@@ -88,18 +94,18 @@ public class Program
                     }
                     break;
                     case "4":
-                    // Find vehicle by properties
-                    Vehicle.VehicleTypeE vType = Vehicle.VehicleTypeE.Unknown;
-                    string vehicleTypeStr = Utils.SafeInput("Enter vehicle type to search for (or press Enter to skip): ");
-                    if (!string.IsNullOrEmpty(vehicleTypeStr) && !Enum.TryParse<Vehicle.VehicleTypeE>(vehicleTypeStr, true, out vType))
-                    {
-                        Console.WriteLine("Invalid vehicle type. Searching for all types.");
-                        vType = Vehicle.VehicleTypeE.Unknown;
-                    }
-                    string make = Utils.SafeInput("Enter make (or press Enter to skip): ");
-                    string color = Utils.SafeInput("Enter color (or press Enter to skip): ");
-                    garage.ListVehiclesByProperties(vType, make, color);
-                    break;
+                        // Find vehicle by properties
+                        Vehicle.VehicleTypeE vType = Vehicle.VehicleTypeE.Unknown;
+                        string vehicleTypeStr = Utils.SafeInput("Enter vehicle type to search for (or press Enter to skip): ");
+                        if (!string.IsNullOrEmpty(vehicleTypeStr) && !Enum.TryParse<Vehicle.VehicleTypeE>(vehicleTypeStr, true, out vType))
+                        {
+                            Console.WriteLine("Invalid vehicle type. Searching for all types.");
+                            vType = Vehicle.VehicleTypeE.Unknown;
+                        }
+                        string vMake = Utils.SafeInput("Enter make (or press Enter to skip): ");
+                        string vColor = Utils.SafeInput("Enter color (or press Enter to skip): ");
+                        garage.ListVehiclesByProperties(vType, vMake, vColor);
+                        break;
                 case "5":
                     // Save inventory to file
                     string filePath = Utils.SafeInput("Enter file path to save inventory: ");

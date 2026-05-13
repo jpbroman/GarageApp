@@ -5,14 +5,10 @@ public class VehicleFactory
 {   
     static string prompt = "";
  
-    public static Vehicle CreateVehicle(string type)
+    public static Vehicle? CreateVehicle(string type, string make, string color, string regNumber)
     {
         // base data
         Vehicle.VehicleTypeE vehicleType = Enum.TryParse<Vehicle.VehicleTypeE>(type, true, out var vt) ? vt : Vehicle.VehicleTypeE.Unknown;
-        string make = Utils.SafeInput("Enter make: ");
-        string color = Utils.SafeInput("Enter color: ");
-        string regNumber = Utils.SafeInput("Enter registration number: ");
-
         Vehicle vehicle = new Vehicle(vehicleType, make, color, regNumber);
 
         switch (type.ToLower().Substring(0, Math.Min(type.Length, 3))) // use first 3 letters to determine type
@@ -28,7 +24,8 @@ public class VehicleFactory
             case "boa":
                 return CreateBoat(vehicle);
             default:
-                throw new ArgumentException($"Unknown vehicle type: {type}");
+                Console.WriteLine($"Unknown vehicle type: {type}.");
+                return null;
         }
     }
 
@@ -153,5 +150,4 @@ public class VehicleFactory
         Boat boat = new Boat(vehicle.Make, vehicle.Color, vehicle.RegNumber, boatType, length);
         return boat;
     }
-
 }   

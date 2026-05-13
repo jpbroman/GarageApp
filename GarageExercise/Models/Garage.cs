@@ -18,6 +18,11 @@ public class Garage
 
     public bool AddVehicle(Vehicle vehicle)
     {
+        if (checkRegNumberExists(vehicle.RegNumber))
+        {
+            Console.WriteLine("A vehicle with this registration number already exists. They must be unique.");
+            return false;
+        }
         int i = Array.IndexOf(Vehicles, null);
         if (i >= 0)        {
             Vehicles[i] = vehicle;
@@ -65,9 +70,6 @@ public class Garage
     public void ListVehiclesByProperties(Vehicle.VehicleTypeE vehicleType, string? make, string ?color)
     {
         Console.WriteLine($"Number of vehicles in the garage: {numberOfVehicles}");
-        // Vehicle v = new Vehicle(Vehicle.VehicleTypeE.Unknown, "Make", "Color", "RegNumber"); // dummy object to get property names
-        // Type type = v.GetType();
-        // Console.WriteLine(string.Join(", ", type.GetProperties(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance).Select(p => p.Name)));
 
         foreach (var vehicle in Vehicles)
         {
@@ -82,7 +84,6 @@ public class Garage
                     Console.WriteLine(vehicleData);
                 }
 
-//                Console.WriteLine($"Type: {type2.Name}, Make: {vehicle.Make}, Color: {vehicle.Color}, RegNumber: {vehicle.RegNumber}");
             }
         }
     }
@@ -135,7 +136,10 @@ public class Garage
                     Vehicle? vehicle = VehicleFactory.CreateVehicleFromData(typePart, dataPart);
                     if (vehicle != null)
                     {
-                        AddVehicle(vehicle);
+                        if (!AddVehicle(vehicle))
+                        {
+                            Console.WriteLine("Failed to add vehicle  {vehicle}.");
+                        }
                     }
                 }
             }
@@ -158,4 +162,15 @@ public class Garage
         return sb.ToString().TrimEnd(',', ' ');
     }
 
+    private bool checkRegNumberExists(string regNumber)
+    {
+       foreach (Vehicle? v in Vehicles)
+        {
+            if (v != null && v.RegNumber.Equals(regNumber, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

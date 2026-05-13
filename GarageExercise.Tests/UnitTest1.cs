@@ -165,4 +165,26 @@ public class UnitTest1
         Assert.Contains("Make: Harley, Color: Blue, RegNumber: QWE567", result);
         Assert.DoesNotContain("Make: Honda, Color: Black, RegNumber: AEF456", result);
     }
+    [Fact]
+    public void TestUniqueRegNumbers()
+    {
+        Garage garage = new Garage(5);
+        Vehicle vehicle1 = new Car("Honda", "Blue", "XYZ789", Car.CarTypeE.SUV, Car.TransmissionE.Manual);
+        Vehicle vehicle2 = new Car("Skoda", "Red", "ABC123", Car.CarTypeE.Sedan, Car.TransmissionE.Automatic);
+        Vehicle vehicle3 = new Boat("Flipper", "Red", "ABC123", Boat.BoatTypeE.Sailboat, 30); // duplicate reg number
+        Assert.True(garage.AddVehicle(vehicle1));
+        Assert.True(garage.AddVehicle(vehicle2));
+        Assert.False(garage.AddVehicle(vehicle3)); // should fail due to duplicate reg number
+    }
+
+    [Fact]
+    public void TestAddNotRecognizedVehicleType()
+    {
+        Garage garage = new Garage(5);
+        var sw = new StringWriter();  // redirect stdout from class under test
+        Console.SetOut(sw);
+        Vehicle? vehicle1 = VehicleFactory.CreateVehicle("c", "TestMake", "TestColor", "TST123");
+        string result = sw.ToString();
+        Assert.Contains("Unknown vehicle type: c", result);
+    }
 }
