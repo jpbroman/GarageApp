@@ -7,9 +7,17 @@ public class VehicleFactory
  
     public static Vehicle? CreateVehicle(string type, string make, string color, string regNumber)
     {
+        Vehicle? vehicle = null;
         // base data
         Vehicle.VehicleTypeE vehicleType = Enum.TryParse<Vehicle.VehicleTypeE>(type, true, out var vt) ? vt : Vehicle.VehicleTypeE.Unknown;
-        Vehicle vehicle = new Vehicle(vehicleType, make, color, regNumber);
+        try {
+            vehicle = new Vehicle(vehicleType, make, color, regNumber);
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine(ex.Message);
+            return null;
+        }
 
         switch (type.ToLower().Substring(0, Math.Min(type.Length, 3))) // use first 3 letters to determine type
         {

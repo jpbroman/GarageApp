@@ -40,7 +40,7 @@ public class UnitTest1
         Vehicle vehicle1 = new Vehicle(Vehicle.VehicleTypeE.Car, "Toyota", "Red", "ABC123");
         Vehicle vehicle2 = new Vehicle(Vehicle.VehicleTypeE.Car, "Honda", "Blue", "XYZ789");
         Vehicle vehicle3 = new Car("Ford", "Green", "DEF456", Car.CarTypeE.Sedan, Car.TransmissionE.Automatic);
-        Vehicle vehicle4 = new Motorcycle("GHI321", "Black", "Harley", Motorcycle.McTypeE.Cruiser, Motorcycle.EngineTypeE.FourStroke);  
+        Vehicle vehicle4 = new Motorcycle("Harley", "Black", "POI-123", Motorcycle.McTypeE.Cruiser, Motorcycle.EngineTypeE.FourStroke);
         Vehicle vehicle5 = new Bus("Volvo", "Yellow", "JKL012", Bus.BusTypeE.City, 50);
         garage.AddVehicle(vehicle1);
         garage.AddVehicle(vehicle2);
@@ -186,5 +186,23 @@ public class UnitTest1
         Vehicle? vehicle1 = VehicleFactory.CreateVehicle("c", "TestMake", "TestColor", "TST123");
         string result = sw.ToString();
         Assert.Contains("Unknown vehicle type: c", result);
+    }
+    [Fact]
+    public void TestInvalidRegNumberFormat()
+    {
+        Vehicle? vehicle = null;
+
+        var sw = new StringWriter();  // redirect stdout from class under test
+        Console.SetOut(sw);
+        try  {
+             vehicle = new Car("Honda", "Blue", "INVALID", Car.CarTypeE.SUV, Car.TransmissionE.Manual);
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        Assert.Null(vehicle);
+        string result = sw.ToString();
+        Assert.Contains("Invalid registration number format for this type of vehicle.", result);
     }
 }
